@@ -1,0 +1,191 @@
+import pandas as pd
+import plotly.express as px
+import os
+import hashlib
+
+
+def read_data(file_name: str) -> pd.DataFrame():
+    df = ""
+    try:
+        df = pd.read_csv(os.path.join("data", file_name))
+    except:
+        df = False
+    finally:
+        return df
+
+
+class Olympic:
+    def __init__(self, file_name: str, country_name: str) -> None:
+        self._file_name = file_name
+        self._country_name = country_name
+        try:
+            self._df = read_data(file_name)
+            self._df_country = self._df.loc[self._df["NOC"]
+                                            == self._country_name]
+        except:
+            print(
+                "Something went wrong while filtering out data for given country, double check the country name [NOC] and try again.")
+
+    @property
+    def df_country(self) -> pd.DataFrame:
+        return self._df_country
+
+    @df_country.setter
+    def df_country(self, value: pd.DataFrame) -> None:
+        self._df_country = value
+
+    @property
+    def country_name(self) -> str:
+        return self._country_name
+
+    @country_name.setter
+    def country_name(self, value: str) -> None:
+        self._country_name = value
+
+    @property
+    def file_name(self) -> str:
+        return self._file_name
+
+    @file_name.setter
+    def file_name(self, value: str) -> None:
+        self._file_name = value
+
+    @property
+    def df(self) -> pd.DataFrame:
+        return self._df
+
+    @df.setter
+    def df(self, value: pd.DataFrame) -> None:
+        self._df = value
+
+    def describe_data(self, n: int) -> dict:
+        return {"info": self._df.info(), "describe": self._df.describe(), "head": self._df.head(n)}
+
+    def get_unique_items(self, element: str) -> list:
+        return self._df[element].unique()
+
+    def get_age_summary(self) -> dict:
+        """
+
+        """
+        return {
+            "min": self._df["Age"].min(),
+            "max": self._df["Age"].max(),
+            "mean": self._df["Age"].mean(),
+            "median": self._df["Age"].median(),
+            "std": self._df["Age"].std()
+        }
+
+    def plot_figure(self, figure_type: str, df: pd.DataFrame, x, y):
+        """
+            Plot figure and data with help of dataframe _df
+            - Param:
+                - figure_type: str -> The chart type (bar, pie, line and histogram)
+                - df: pd.DataFrame -> The dataframe
+                - x: Data to plot in x-axis
+                - y: Data to plot in y-axis
+            - Return: 
+                - return the plot px.Figure else False
+        """
+        figure_type = figure_type.lower()
+        if figure_type == "bar":
+            return px.bar(df, x=x, y=y)
+        if figure_type == "pie":
+            return px.pie(df, x)
+        if figure_type == "line":
+            return px.pie(df, x=x)
+        if figure_type == "histogram":
+            return px.histogram(df, x=x, nbins=20)
+        return False
+
+    def get_number_of_men_women(self, df) -> pd.DataFrame:
+        men = df.loc[df["Sex"] == "M"].count()
+        women = df.loc[df["Sex"] == "F"].count()
+        gender_dist = {
+            "Sex": ["Men", "Women"],
+            "Number": [men, women]
+        }
+        return pd.DataFrame.from_dict(gender_dist)
+
+    def plot_sex_distribution(self):
+        sex_distribution = self.get_number_of_men_women()
+        sex_distribution = pd.DataFrame(sex_distribution)
+        return self.plot_figure("pie", sex_distribution, "y")
+
+    def hash_column(self, column_name: str) -> None:
+        """
+            Using sha256 method to hash values in given column
+            - Param: 
+                - column_name: str -> The column to hash values in 
+        """
+        self._df_country = self._df[column_name].apply(
+            lambda x: hashlib.sha256(x.encode('utf-8')).hexdigest())
+
+    def medals_won(self):
+        df_sports = self._df_country.loc[(self._df_country["Medal"] == "Gold") | (self._df_country["Medal"] == "Silver") | (self._df_country["Medal"] == "Bronze")].drop_duplicates(
+            subset=["Event", "Year"])
+        fig = px.pie(df_sports, values=df_sports["Medal"].value_counts(
+        ), names=df_sports["Medal"].value_counts().index, title=f"Medals won by {self._country_name}")
+        fig.update_traces(
+            hovertemplate="Medal: %{label}: <br>Number of medals: %{value}")
+        return fig
+
+    def top_sports(self):
+        """
+            Find and plot top ten sport for the country at OS 
+            - Return:
+                - px.Figure : plot variable in bar type. 
+        """
+        df_sports = self._df_country.drop_duplicates(subset=["Event", "Year"])
+
+        df_sports_medals = dict(df_sports.groupby("Sport")["Medal"].count())
+
+        a = sorted(df_sports_medals.items(), key=lambda x: x[1], reverse=True)
+
+        top_ten_sports = [a[i][0] for i in range(10)]
+
+        top_ten_sports_medals = [a[i][1] for i in range(10)]
+
+        fig = px.bar(x=top_ten_sports, y=top_ten_sports_medals)
+        fig.update_traces(hovertemplate="%{y} medals in %{x}")
+
+        return fig
+
+    def medals_per_os(self):
+        df_year_medals = self._df_country.drop_duplicates(
+            subset=["Event", "Year"])
+
+        df_year_medals = df_year_medals.groupby("Year")["Medal"].count()
+
+        fig = px.bar(df_year_medals)
+
+        fig.update_traces(hovertemplate="Year: %{x} <br> Medals: %{y}")
+
+        return fig
+
+    def age_distribution_country(self):
+        return self.plot_figure("histogram", self._df_country, "Age", "y")
+
+    def medal_distribution_countries(self, sport: str):
+        df_sports = self._df.loc[self._df["Sport"] == sport].groupby("NOC")[
+            "Medal"].count()
+
+        df_sports = df_sports.sort_values(ascending=False)
+
+        fig = px.bar(df_sports.head())
+        return fig
+
+    def age_distribution(self, sport: str):
+        df_sport = self._df.loc[self._df["Sport"] == sport]
+
+        fig = px.histogram(df_sport, x="Age", nbins=25)
+
+        return fig
+
+    def get_country_fullname(self) -> str:
+        countries_names = pd.read_csv(os.path.join("data", "noc_regions.csv"))
+        return countries_names.loc[countries_names["NOC"] == self._country_name]["region"].to_list()[0]
+
+    def get_gender_by_year(self, year: int):
+        df = self._df_country.loc[self._df_country["Year"] == year]
+        return self.get_number_of_men_women(df)

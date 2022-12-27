@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=PT+Sans:wght@700&family=Roboto&family=Roboto+Mono&display=swap');
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+}
+
+p {
+    font-family: 'Roboto Mono', monospace;
+}
+
+
+.header_title {
+    border-radius: 4px;
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+

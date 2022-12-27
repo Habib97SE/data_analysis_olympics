@@ -1,0 +1,79 @@
+None
+
+
+                  ID          Age       Height       Weight         Year
+count    9733.000000  9535.000000  8128.000000  8024.000000  9733.000000
+mean    65647.703483    25.093235   174.978716    70.548293  1982.173636
+std     38183.706179     6.609711    10.558032    13.896113    27.113920
+min       140.000000    13.000000   132.000000    35.000000  1900.000000
+25%     31503.000000    21.000000   168.000000    60.000000  1968.000000
+50%     66743.000000    24.000000   175.000000    70.000000  1988.000000
+75%     98417.000000    28.000000   182.000000    80.000000  2004.000000
+max    135534.000000    81.000000   216.000000   140.000000  2016.000000
+
+
+      ID                       Name Sex  ...      Sport                                          Event   Medal
+269  140  William "Bill" Abbott Jr.   M  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+270  140  William "Bill" Abbott Jr.   M  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+279  146              Jeremy Abbott   M  ...   Canoeing  Canoeing Men's Canadian Doubles, 1,000 metres     NaN
+280  147              Joanne Abbott   F  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+281  148     Kathryn "Katie" Abbott   F  ...    Sailing          Sailing Women's Three Person Keelboat     NaN
+285  152                Matt Abbott   M  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+474  259                 Reema Abdo   F  ...   Swimming         Swimming Women's 100 metres Backstroke     NaN
+475  259                 Reema Abdo   F  ...   Swimming         Swimming Women's 200 metres Backstroke     NaN
+476  259                 Reema Abdo   F  ...   Swimming   Swimming Women's 4 x 100 metres Medley Relay  Bronze
+481  264               Justin Abdou   M  ...  Wrestling   Wrestling Men's Light-Heavyweight, Freestyle     NaN
+
+[10 rows x 15 columns]None
+
+
+                  ID          Age       Height       Weight         Year
+count    9733.000000  9535.000000  8128.000000  8024.000000  9733.000000
+mean    65647.703483    25.093235   174.978716    70.548293  1982.173636
+std     38183.706179     6.609711    10.558032    13.896113    27.113920
+min       140.000000    13.000000   132.000000    35.000000  1900.000000
+25%     31503.000000    21.000000   168.000000    60.000000  1968.000000
+50%     66743.000000    24.000000   175.000000    70.000000  1988.000000
+75%     98417.000000    28.000000   182.000000    80.000000  2004.000000
+max    135534.000000    81.000000   216.000000   140.000000  2016.000000
+
+
+      ID                       Name Sex  ...      Sport                                          Event   Medal
+269  140  William "Bill" Abbott Jr.   M  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+270  140  William "Bill" Abbott Jr.   M  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+279  146              Jeremy Abbott   M  ...   Canoeing  Canoeing Men's Canadian Doubles, 1,000 metres     NaN
+280  147              Joanne Abbott   F  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+281  148     Kathryn "Katie" Abbott   F  ...    Sailing          Sailing Women's Three Person Keelboat     NaN
+285  152                Matt Abbott   M  ...    Sailing            Sailing Mixed Three Person Keelboat     NaN
+474  259                 Reema Abdo   F  ...   Swimming         Swimming Women's 100 metres Backstroke     NaN
+475  259                 Reema Abdo   F  ...   Swimming         Swimming Women's 200 metres Backstroke     NaN
+476  259                 Reema Abdo   F  ...   Swimming   Swimming Women's 4 x 100 metres Medley Relay  Bronze
+481  264               Justin Abdou   M  ...  Wrestling   Wrestling Men's Light-Heavyweight, Freestyle     NaN
+
+[10 rows x 15 columns]None
+
+
+                  ID          Age       Height       Weight         Year
+count    9733.000000  9535.000000  8128.000000  8024.000000  9733.000000
+mean    65647.703483    25.093235   174.978716    70.548293  1982.173636
+std     38183.706179     6.609711    10.558032    13.896113    27.113920
+min       140.000000    13.000000   132.000000    35.000000  1900.000000
+25%     31503.000000    21.000000   168.000000    60.000000  1968.000000
+50%     66743.000000    24.000000   175.000000    70.000000  1988.000000
+75%     98417.000000    28.000000   182.000000    80.000000  2004.000000
+max    135534.000000    81.000000   216.000000   140.000000  2016.000000
+
+
+      ID                       Name Sex   Age  Height  ...  Season         City      Sport                                          Event   Medal
+269  140  William "Bill" Abbott Jr.   M  42.0   172.0  ...  Summer      Atlanta    Sailing            Sailing Mixed Three Person Keelboat     NaN
+270  140  William "Bill" Abbott Jr.   M  46.0   172.0  ...  Summer       Sydney    Sailing            Sailing Mixed Three Person Keelboat     NaN
+279  146              Jeremy Abbott   M  19.0   179.0  ...  Summer     Montreal   Canoeing  Canoeing Men's Canadian Doubles, 1,000 metres     NaN
+280  147              Joanne Abbott   F  41.0   160.0  ...  Summer      Atlanta    Sailing            Sailing Mixed Three Person Keelboat     NaN
+281  148     Kathryn "Katie" Abbott   F  21.0   164.0  ...  Summer      Beijing    Sailing          Sailing Women's Three Person Keelboat     NaN
+285  152                Matt Abbott   M  34.0   185.0  ...  Summer       Sydney    Sailing            Sailing Mixed Three Person Keelboat     NaN
+474  259                 Reema Abdo   F  21.0   173.0  ...  Summer  Los Angeles   Swimming         Swimming Women's 100 metres Backstroke     NaN
+475  259                 Reema Abdo   F  21.0   173.0  ...  Summer  Los Angeles   Swimming         Swimming Women's 200 metres Backstroke     NaN
+476  259                 Reema Abdo   F  21.0   173.0  ...  Summer  Los Angeles   Swimming   Swimming Women's 4 x 100 metres Medley Relay  Bronze
+481  264               Justin Abdou   M  29.0   175.0  ...  Summer       Sydney  Wrestling   Wrestling Men's Light-Heavyweight, Freestyle     NaN
+
+[10 rows x 15 columns]
