@@ -1,5 +1,6 @@
 # Olympic Data Visualization and Analysis
-Welcome to the Olympic Data Visualization and Analysis repository! In this repository, you will find a variety of Jupyter notebooks and Python scripts that demonstrate how to use different technologies, such as Plotly Express and Pandas, to visualize and analyze Olympic data.
+
+Welcome to the Olympic Data Visualization and Analysis repository! In this repository, you will find a variety of Jupyter notebooks and Python scripts that demonstrate how to use different technologies, such as Plotly Express and Pandas, to visualize and analyze Olympic data. From exploring trends and patterns in medal counts to analyzing athlete performance, these resources provide a wide range of tools and techniques for understanding the rich history and diversity of the Olympic Games. Whether you are a beginner or an experienced data scientist, you will find something of interest in this repository.
 
 ## Contents
 This repository includes the following resources:
