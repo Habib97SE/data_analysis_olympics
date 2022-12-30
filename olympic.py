@@ -155,11 +155,12 @@ class Olympic:
         df_year_medals = self._df_country.drop_duplicates(
             subset=["Event", "Year"])
 
-        df_year_medals = df_year_medals.groupby("Year")["Medal"].count()
+        df_year_medals = df_year_medals.groupby("Year")["Medal"].value_counts()
 
-        fig = px.bar(df_year_medals)
-
-        fig.update_traces(hovertemplate="Year: %{x} <br> Medals: %{y}")
+        # create bar group for each year and medal type
+        fig = px.bar(df_year_medals, x=df_year_medals.index.get_level_values(
+            0), y=df_year_medals.values, color=df_year_medals.index.get_level_values(1), labels={"x": "Year", "y": "Number of medals", "color": "Medal type"})
+        fig.update_traces(hovertemplate="%{y} % {color} medals in %{x}")
 
         return fig
 
@@ -189,3 +190,63 @@ class Olympic:
     def get_gender_by_year(self, year: int):
         df = self._df_country.loc[self._df_country["Year"] == year]
         return self.get_number_of_men_women(df)
+
+    def get_unique_sorted_items(self, element: str, reverse=False) -> list:
+        elements = self.get_unique_items(element)
+        return sorted(elements, reverse=reverse)
+
+    def get_data_based_year(self, year) -> pd.DataFrame:
+        self._df_country = self._df.loc[self._df["NOC"] == self.country_name]
+        return self._df_country.loc[self._df_country["Year"] == year]
+
+    def get_list_all_countries(self) -> list:
+        countries = []
+        df_countries = pd.read_csv(os.path.join("data", "noc_regions.csv"))
+        for country in df_countries["region"]:
+            countries.append(country)
+        return countries
+
+    def convert_country_name_to_noc(self, country_name: str) -> str:
+        df_countries = pd.read_csv(os.path.join("data", "noc_regions.csv"))
+        return df_countries.loc[df_countries["region"] == country_name]["NOC"].to_list()[0]
+
+    def update_country_df(self):
+        self._df_country = self._df.loc[self._df["NOC"] == self.country_name]
+
+        print(self._df_country["NOC"])
+
+    def medals_per_year(self, year: int):
+        """
+            Find and plot medals won by the country in a given year
+            - Param:
+                - year: int -> The year to find medals in
+            - Return:
+                - px.Figure -> plot variable in bar type.
+        """
+        df = self._df_country.loc[self._df_country["Year"] == year]
+        df = df.drop_duplicates(subset=["Event", "Year"])
+        df = df.groupby("Medal")["Medal"].count()
+        # sort the bars Gold > Silver > Bronze
+        df = df.reindex(["Gold", "Silver", "Bronze"])
+        # show gold medals in green, silver in silver and bronze in brown
+        df = df.rename(index={"Gold": "Gold medals",
+                       "Silver": "Silver medals", "Bronze": "Bronze medals"})
+        fig = px.bar(df, color=df.index)
+        return fig
+
+    def get_most_successfull_athletes(self, year: int):
+        df = self._df_country.loc[self._df_country["Year"] == year]
+        df = df.groupby("Name")["Medal"].count()
+        df = df.sort_values(ascending=False)
+        fig = px.bar(df.head(5), color=df.head(5).index,
+                     title="Most successfull athletes")
+        return fig
+
+    def get_top_5_sports(self, year: int):
+        df = self._df_country.loc[self._df_country["Year"] == year]
+        df = df.drop_duplicates(subset=["Event", "Year"])
+        df = df.groupby("Sport")["Medal"].count()
+        df = df.sort_values(ascending=False)
+        fig = px.bar(df.head(5), color=df.head(5).index,
+                     title="Most successfull sports")
+        return fig
