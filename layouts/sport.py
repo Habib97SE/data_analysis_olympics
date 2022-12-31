@@ -116,11 +116,6 @@ def create_sport_section():
                 ]
             ),
             height_weight_athletes(),
-            html.P(
-                "The biggest and longest athlete is: "
-            ),
-            html.P(
-                df_olympic.get_name()
-            )
+
         ]
     )

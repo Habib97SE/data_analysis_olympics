@@ -289,6 +289,3 @@ class Olympic:
         """
         fig = px.scatter(self._df, x="Weight", y="Height")
         return fig
-
-    def get_name(self):
-        return self._df.loc[(self._df["Height"] == 183) & (self._df["Weight"] == 214)]["Name"].values[0]

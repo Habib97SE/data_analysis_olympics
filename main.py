@@ -106,15 +106,6 @@ def update_graph_top_countries(selected_year):
     return fig
 
 
-@app.callback(
-    Output("graph_height_weight_athletes", "figure"),
-    Input("select_year", "value"),
-)
-def update_graph_height_weight_athletes(selected_year):
-    fig = df_olympic.get_athlets_height()
-    return fig
-
-
 def main():
     app.run_server(debug=True)
 
