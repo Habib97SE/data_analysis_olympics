@@ -19,11 +19,13 @@ df_olympic = Olympic("athlete_events.csv", NOC)
 
 app = dash.Dash(
     __name__,
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    external_stylesheets=[dbc.themes.CERULEAN],
     # makes possible for responsivity
     meta_tags=[
         dict(name="viewport", content="width=device-width, initial-scale=1.0")],
     title="Olympic Games Dashboard",
+    # add favicon
+
 )
 
 server = app.server
@@ -62,11 +64,12 @@ def update_graph_top_5_sports(selected_year):
 
 
 @app.callback(
-    Output("graph_canada_medals_all_years", "figure"),
+    Output("graph_country_medals_all_years", "figure"),
     Input("select_year", "value"),
+    Input("range_slider_country_medals_all_years", "value")
 )
-def update_graph_canada_medals_all_years(selected_year):
-    fig = df_olympic.medals_per_os()
+def update_graph_country_medals_all_years(selected_year, selected_year_range):
+    fig = df_olympic.medals_per_os(selected_year_range)
     return fig
 
 
@@ -103,6 +106,15 @@ def update_graph_gender_dist(selected_year):
 )
 def update_graph_top_countries(selected_year):
     fig = df_olympic.get_top_countries()
+    return fig
+
+
+@app.callback(
+    Output("graph_gender_dist_country", "figure"),
+    Input("select_year", "value"),
+)
+def update_gender_graph_dist_country(selected_year):
+    fig = df_olympic.get_gender_by_year(selected_year)
     return fig
 
 

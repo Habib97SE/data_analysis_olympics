@@ -116,6 +116,5 @@ def create_sport_section():
                 ]
             ),
             height_weight_athletes(),
-
         ]
     )

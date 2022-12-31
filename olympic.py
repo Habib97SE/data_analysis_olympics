@@ -151,16 +151,16 @@ class Olympic:
 
         return fig
 
-    def medals_per_os(self):
-        df_year_medals = self._df_country.drop_duplicates(
-            subset=["Event", "Year"])
+    def medals_per_os(self, selected_year_range: list):
+        df = self._df_country.loc[(self._df_country["Year"] >= selected_year_range[0]) & (
+            self._df_country["Year"] <= selected_year_range[1])]
 
-        df_year_medals = df_year_medals.groupby("Year")["Medal"].value_counts()
+        df = df.drop_duplicates(subset=["Event", "Year"])
 
-        # create bar group for each year and medal type
-        fig = px.bar(df_year_medals, x=df_year_medals.index.get_level_values(
-            0), y=df_year_medals.values, color=df_year_medals.index.get_level_values(1), labels={"x": "Year", "y": "Number of medals", "color": "Medal type"})
-        fig.update_traces(hovertemplate="%{y} % {color} medals in %{x}")
+        df = df.groupby("Year")["Medal"].count()
+
+        # create bargroup of medals per year
+        fig = px.bar(df, x=df.index, y=df.values)
 
         return fig
 
@@ -188,8 +188,12 @@ class Olympic:
         return countries_names.loc[countries_names["NOC"] == noc]["region"].values[0]
 
     def get_gender_by_year(self, year: int):
-        df = self._df_country.loc[self._df_country["Year"] == year]
-        return self.get_number_of_men_women(df)
+        df = self._df.loc[self._df["Year"] == year]
+        names = ["Male", "Female"]
+        fig = px.pie(df, values=df["Sex"].value_counts(
+        ), names=names, title="Gender distribution")
+        fig.update_traces(hovertemplate="%{label}: %{value} (%{percent})")
+        return fig
 
     def get_unique_sorted_items(self, element: str, reverse=False) -> list:
         elements = self.get_unique_items(element)
@@ -268,8 +272,10 @@ class Olympic:
         return fig
 
     def get_gender_distribution(self):
-        fig = px.pie(self._df, values=self._df["Sex"].value_counts())
-
+        names = ["Male", "Female"]
+        fig = px.pie(self._df, values=self._df["Sex"].value_counts(
+        ), names=names, title="Gender distribution")
+        fig.update_traces(hovertemplate="%{label}: %{value} (%{percent})")
         return fig
 
     def get_top_countries(self):
@@ -289,3 +295,14 @@ class Olympic:
         """
         fig = px.scatter(self._df, x="Weight", y="Height")
         return fig
+
+    def create_dropdown_year_season(self):
+        years = [i for i in self.get_unique_sorted_items("Year", True)]
+        years_season = {}
+        for i in years:
+            season = self._df.loc[self._df["Year"] == i]["Season"].to_list()[0]
+            years_season[i] = season + " " + str(i)
+        return years_season
+
+    def get_years(self):
+        return [i for i in self.get_unique_sorted_items("Year", True)]
