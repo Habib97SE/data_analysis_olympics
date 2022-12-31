@@ -70,6 +70,51 @@ def update_graph_canada_medals_all_years(selected_year):
     return fig
 
 
+@app.callback(
+    Output("graph_top_medalists", "figure"),
+    Input("select_year", "value"),
+)
+def update_graph_top_medalists(selected_year):
+    fig = df_olympic.get_top_medalists()
+    return fig
+
+
+@app.callback(
+    Output("graph_top_10_sports", "figure"),
+    Input("select_year", "value"),
+)
+def update_graph_top_10_sports(selected_year):
+    fig = df_olympic.get_top_ten_sports()
+    return fig
+
+
+@app.callback(
+    Output("graph_gender_dist", "figure"),
+    Input("select_year", "value"),
+)
+def update_graph_gender_dist(selected_year):
+    fig = df_olympic.get_gender_distribution()
+    return fig
+
+
+@app.callback(
+    Output("graph_top_countries", "figure"),
+    Input("select_year", "value"),
+)
+def update_graph_top_countries(selected_year):
+    fig = df_olympic.get_top_countries()
+    return fig
+
+
+@app.callback(
+    Output("graph_height_weight_athletes", "figure"),
+    Input("select_year", "value"),
+)
+def update_graph_height_weight_athletes(selected_year):
+    fig = df_olympic.get_athlets_height()
+    return fig
+
+
 def main():
     app.run_server(debug=True)
 

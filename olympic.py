@@ -108,9 +108,9 @@ class Olympic:
         return pd.DataFrame.from_dict(gender_dist)
 
     def plot_sex_distribution(self):
-        sex_distribution = self.get_number_of_men_women()
+        sex_distribution = self.get_number_of_men_women(self._df)
         sex_distribution = pd.DataFrame(sex_distribution)
-        return self.plot_figure("pie", sex_distribution, "y")
+        return self.plot_figure("pie", sex_distribution, "Number", "y")
 
     def hash_column(self, column_name: str) -> None:
         """
@@ -130,7 +130,7 @@ class Olympic:
             hovertemplate="Medal: %{label}: <br>Number of medals: %{value}")
         return fig
 
-    def top_sports(self):
+    def top_country_sports(self):
         """
             Find and plot top ten sport for the country at OS 
             - Return:
@@ -183,9 +183,9 @@ class Olympic:
 
         return fig
 
-    def get_country_fullname(self) -> str:
+    def get_country_fullname(self, noc: str) -> str:
         countries_names = pd.read_csv(os.path.join("data", "noc_regions.csv"))
-        return countries_names.loc[countries_names["NOC"] == self._country_name]["region"].to_list()[0]
+        return countries_names.loc[countries_names["NOC"] == noc]["region"].values[0]
 
     def get_gender_by_year(self, year: int):
         df = self._df_country.loc[self._df_country["Year"] == year]
@@ -250,3 +250,45 @@ class Olympic:
         fig = px.bar(df.head(5), color=df.head(5).index,
                      title="Most successfull sports")
         return fig
+
+    def get_top_medalists(self):
+        df = self._df.drop_duplicates(subset=["Event", "Year"])
+        df = df.groupby("Name")["Medal"].count()
+        df = df.sort_values(ascending=False)
+        fig = px.bar(df.head(10), color=df.head(10).index,
+                     title="Most successfull athletes")
+        return fig
+
+    def get_top_ten_sports(self):
+        df = self._df.drop_duplicates(subset=["Event", "Year"])
+        df = df.groupby("Sport")["Medal"].count()
+        df = df.sort_values(ascending=False)
+        fig = px.bar(df.head(10), color=df.head(10).index,
+                     title="Most successfull sports")
+        return fig
+
+    def get_gender_distribution(self):
+        fig = px.pie(self._df, values=self._df["Sex"].value_counts())
+
+        return fig
+
+    def get_top_countries(self):
+        df = self._df.drop_duplicates(subset=["Event", "Year"])
+        df = df.groupby("NOC")["Medal"].count()
+        df = df.sort_values(ascending=False)
+        nocs = df.head(5).index.to_list()
+        for i in range(len(nocs)):
+            nocs[i] = self.get_country_fullname(nocs[i])
+        fig = px.bar(df.head(5), color=nocs,
+                     title="Most successfull countries")
+        return fig
+
+    def get_athlets_height(self):
+        """
+            Return a scatter plot of the height of the athletes in the all olmpics
+        """
+        fig = px.scatter(self._df, x="Weight", y="Height")
+        return fig
+
+    def get_name(self):
+        return self._df.loc[(self._df["Height"] == 183) & (self._df["Weight"] == 214)]["Name"].values[0]

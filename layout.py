@@ -2,6 +2,9 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 from olympic import Olympic
 
+# import sport layout from "./layout/sport.py"
+from layouts.sport import create_sport_section
+
 COUNTRY = ""
 
 card = dbc.Card(
@@ -156,4 +159,21 @@ class Layout:
                         ]
                     )
                 ]),
+                dbc.Row(
+                    [
+                        dbc.Card(
+                            [
+                                dbc.CardHeader(
+                                    html.H2("Medals per sport for Canada")
+                                ),
+                                dbc.CardBody(
+                                    create_sport_section()
+                                ),
+                                dbc.CardFooter(
+                                    html.P(
+                                        "This graph shows the medals per sport for Canada")
+                                )
+                            ]
+                        )
+                    ]),
             ])
