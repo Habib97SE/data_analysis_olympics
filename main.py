@@ -26,6 +26,8 @@ app = dash.Dash(
     title="Olympic Games Dashboard",
 )
 
+server = app.server
+
 app.layout = Layout().layout()
 
 
