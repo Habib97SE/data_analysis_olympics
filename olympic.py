@@ -85,7 +85,7 @@ class Olympic:
                 - df: pd.DataFrame -> The dataframe
                 - x: Data to plot in x-axis
                 - y: Data to plot in y-axis
-            - Return: 
+            - Return:
                 - return the plot px.Figure else False
         """
         figure_type = figure_type.lower()
@@ -116,8 +116,8 @@ class Olympic:
     def hash_column(self, column_name: str) -> None:
         """
             Using sha256 method to hash values in given column
-            - Param: 
-                - column_name: str -> The column to hash values in 
+            - Param:
+                - column_name: str -> The column to hash values in
         """
         self._df_country = self._df[column_name].apply(
             lambda x: hashlib.sha256(x.encode('utf-8')).hexdigest())
@@ -133,9 +133,9 @@ class Olympic:
 
     def top_country_sports(self):
         """
-            Find and plot top ten sport for the country at OS 
+            Find and plot top ten sport for the country at OS
             - Return:
-                - px.Figure : plot variable in bar type. 
+                - px.Figure : plot variable in bar type.
         """
         df_sports = self._df_country.drop_duplicates(subset=["Event", "Year"])
 
@@ -290,11 +290,15 @@ class Olympic:
                      title="Most successfull countries")
         return fig
 
-    def get_athlets_height(self):
+    def get_athlets_height(self, sport: str):
         """
-            Return a scatter plot of the height of the athletes in the all olmpics
+           Return a scatter of the height and weitght of the athletes in the all olympics for a given sport
         """
-        fig = px.scatter(self._df, x="Weight", y="Height")
+        df = self._df.loc[self._df["Sport"] == sport]
+        fig = px.scatter(df, x="Weight", y="Height")
+        # when hovering over the point, show the name, height and weight of the athlete
+        fig.update_traces(
+            hovertemplate="%{text}<br>Height: %{y}<br>Weight: %{x}", text=df["Name"])
         return fig
 
     def create_dropdown_year_season(self):

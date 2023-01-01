@@ -100,7 +100,7 @@ def plot_medals_all_olympics():
                         id="range_slider_country_medals_all_years",
                         min=1896,
                         max=2016,
-                        step=4,
+                        step=2,
                         value=[1896, 2020],
                         marks={int(year): str(year)
                                for year in range(1896, 2020, 8)}

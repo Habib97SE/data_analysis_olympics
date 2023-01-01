@@ -19,11 +19,11 @@ df_olympic = Olympic("athlete_events.csv", NOC)
 
 app = dash.Dash(
     __name__,
-    external_stylesheets=[dbc.themes.CERULEAN],
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
     # makes possible for responsivity
     meta_tags=[
         dict(name="viewport", content="width=device-width, initial-scale=1.0")],
-    title="Olympic Games Dashboard",
+    title="Olympic Games Analysis Dashboard",
     # add favicon
 
 )
@@ -118,12 +118,22 @@ def update_gender_graph_dist_country(selected_year):
     return fig
 
 
+# sHOW AGE DISTRIBUTION
 @app.callback(
     Output("graph_age_distribution", "figure"),
     Input("select_year", "value"),
 )
 def update_graph_age_distribution(selected_year):
     fig = df_olympic.get_age_distribution()
+    return fig
+
+
+@app.callback(
+    Output("graph_height_weight_athletes", "figure"),
+    Input("dropdown_sport", "value"),
+)
+def update_graph_height_weight_athletes(selected_sport):
+    fig = df_olympic.get_athlets_height(selected_sport)
     return fig
 
 

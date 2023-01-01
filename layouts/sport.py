@@ -23,7 +23,8 @@ def plot_top_medalists():
                 dcc.Graph(id="graph_top_medalists")
             ),
             dbc.CardFooter(
-                html.P("This graph shows the top 10 medalists of all time")
+                html.P(
+                    "This graph shows the top medalists of all time in the olympics games.")
             )
         ],
         class_name="mt-3 my-3 mx-auto",
@@ -40,7 +41,8 @@ def plot_top_10_sports():
                 dcc.Graph(id="graph_top_10_sports")
             ),
             dbc.CardFooter(
-                html.P("This graph shows the top 10 sports of all time")
+                html.P(
+                    "Top 10 sports in the olympics games based on the number of competitors and countries participating in the sport.")
             )
         ],
         class_name="mt-3 my-3 mx-auto",
@@ -57,7 +59,8 @@ def plot_gender_dist():
                 dcc.Graph(id="graph_gender_dist")
             ),
             dbc.CardFooter(
-                html.P("This graph shows gender distribution of the olympics")
+                html.P(
+                    "This graph shows gender distribution of athletes in the olympics games of all time.")
             )
         ],
         class_name="mt-3 my-3 mx-auto",
@@ -74,7 +77,8 @@ def plot_top_country():
                 dcc.Graph(id="graph_top_countries")
             ),
             dbc.CardFooter(
-                html.P("This graph shows the top country of all time")
+                html.P(
+                    "This graph shows countries with most medals in the olympics games of all time.")
             )
         ],
         class_name="mt-3 my-3 mx-auto",
@@ -88,7 +92,7 @@ def plot_height_weight_athletes():
                 html.H2("Height and Weight of Athletes")
             ),
             dbc.CardBody(
-                dcc.Graph(id="graph_height_weight_athletes")
+                dcc.Graph(id="graph_height_weight_athletes"),
             ),
             dbc.CardFooter(
                 html.P("This graph shows the height and weight of athletes")
@@ -162,6 +166,16 @@ def create_sport_section():
                     dbc.Col(
                         plot_top_country(),
                     )
+                ]
+            ),
+            dbc.Col(
+                [
+                    html.Label("Choose a sport:"),
+                    dcc.Dropdown(
+                        id="dropdown_sport",
+                        options=df_olympic.get_unique_items("Sport"),
+                        value="Basketball",
+                    ),
                 ]
             ),
             plot_height_weight_athletes(),

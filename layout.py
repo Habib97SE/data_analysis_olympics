@@ -48,28 +48,51 @@ class Layout:
                     [
                         dbc.Row(
                             [
-                                dbc.CardHeader(
-                                    [html.H1("Olympic Games Dashboard"),
-                                     ],
-                                    class_name="text-center my-3 mx-auto"
-                                ),
-                                dbc.CardHeader(
-                                    html.H2("Country: " + COUNTRY)
-                                ),
-                                dbc.CardBody(
-                                    [
+                                dbc.Card(
+                                    [dbc.CardHeader(
+                                        [html.H1("Olympic Games Dashboard"),
+                                         ],
+                                        class_name="text-center my-3 mx-auto"
+                                    ),
 
-                                        html.P(
-                                            "This dashboard shows the Olympic Games data for the country " + COUNTRY),
-                                        html.P(
-                                            "The dashboard shows general info about all the Olympic Games, the medals per year, the most successful athletes and the most successful sports."),
-                                    ]
+                                        dbc.CardBody(
+                                        [
+
+                                            html.P(
+                                                "This dashboard shows the Olympic Games data for the country " + COUNTRY),
+                                            html.P(
+                                                "The dashboard shows general info about all the Olympic Games, the medals per year, the most successful athletes and the most successful sports."),
+                                        ]
+                                    )]
                                 )
                             ]
                         ),
                     ]
                 ),
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            [
+                                html.H2("- General info about Olympic Games"),
+                                html.P(
+                                    "This section shows general info about the Olympic Games, here you can find out how many medals the country has won, how many athletes have participated and how many sports have been played."),
+                            ],
+                            class_name="col-12 my-4 mx-auto"
+                        )
+                    ]
+                ),
                 create_sport_section(),
+                dbc.Row(
+                    [
+                        html.Div(
+                            className="short_stats",
+                            children=[
+                                html.P("Total number of competitors:"),
+                                html.H4("258 000")
+                            ]
+                        )
+                    ]
+                ),
                 dbc.Row(
                     [
                         dbc.Col(
