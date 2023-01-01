@@ -296,9 +296,11 @@ class Olympic:
         """
         df = self._df.loc[self._df["Sport"] == sport]
         fig = px.scatter(df, x="Weight", y="Height")
+        # change x and y axis labels
+        fig.update_layout(xaxis_title="Weight (KG)", yaxis_title="Height (CM)")
         # when hovering over the point, show the name, height and weight of the athlete
         fig.update_traces(
-            hovertemplate="%{text}<br>Height: %{y}<br>Weight: %{x}", text=df["Name"])
+            hovertemplate="%{text}<br>Height (CM): %{y}<br>Weight (KG): %{x}", text=df["Name"])
         return fig
 
     def create_dropdown_year_season(self):
@@ -306,7 +308,7 @@ class Olympic:
         years_season = {}
         for i in years:
             season = self._df.loc[self._df["Year"] == i]["Season"].to_list()[0]
-            years_season[i] = season + " " + str(i)
+            years_season[i] = season + " Olympic Game " + str(i)
         return years_season
 
     def get_years(self):

@@ -2,19 +2,22 @@
 
 Welcome to the Olympic Data Visualization and Analysis repository! In this repository, you will find a variety of Jupyter notebooks and Python scripts that demonstrate how to use different technologies, such as Plotly Express and Pandas, to visualize and analyze Olympic data. From exploring trends and patterns in medal counts to analyzing athlete performance, these resources provide a wide range of tools and techniques for understanding the rich history and diversity of the Olympic Games. Whether you are a beginner or an experienced data scientist, you will find something of interest in this repository.
 
+You can see live version [here](https://olympic-analysis.herokuapp.com/)
+
 ## Contents
 
 This repository includes the following resources:
 
-- **notebooks:** A directory containing Jupyter notebooks that demonstrate how to use Plotly Express and Pandas to visualize and analyze Olympic data.
-- **scripts:** A directory containing Python scripts that demonstrate how to use Plotly Express and Pandas to visualize and analyze Olympic data.
+- **assets:** A directory containing images and other assets used in the app.
+- **data:** A directory containing the data used in the app.
+- **layouts:** A directory containing all blocks of the app.
 
 ## Requirements
 
 To use the resources in this repository, you will need the following software:
 
 - **Python 3.x**
-- **Jupyter**
+- **Dash**
 - **Plotly**
 - **Pandas**
 

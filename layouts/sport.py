@@ -89,7 +89,26 @@ def plot_height_weight_athletes():
     return dbc.Card(
         [
             dbc.CardHeader(
-                html.H2("Height and Weight of Athletes")
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            html.H2("Height and Weight of Athletes")
+                        ),
+                        dbc.Col(
+                            [
+                                html.Label("Choose a sport:"),
+                                dcc.Dropdown(
+                                    id="dropdown_sport",
+                                    options=df_olympic.get_unique_items(
+                                        "Sport"),
+                                    value="Basketball",
+                                ),
+                            ]
+
+                        )
+                    ]
+                )
+
             ),
             dbc.CardBody(
                 dcc.Graph(id="graph_height_weight_athletes"),
@@ -168,16 +187,7 @@ def create_sport_section():
                     )
                 ]
             ),
-            dbc.Col(
-                [
-                    html.Label("Choose a sport:"),
-                    dcc.Dropdown(
-                        id="dropdown_sport",
-                        options=df_olympic.get_unique_items("Sport"),
-                        value="Basketball",
-                    ),
-                ]
-            ),
+
             plot_height_weight_athletes(),
             plot_age_distribution(),
         ]
