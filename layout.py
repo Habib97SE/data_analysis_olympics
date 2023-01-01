@@ -6,6 +6,7 @@ from layouts.sport import create_sport_section
 from layouts.country import create_country_section
 
 COUNTRY = ""
+NOC = ""
 
 
 def create_dict(elements):
@@ -14,8 +15,6 @@ def create_dict(elements):
         new_dict[element] = element
     return new_dict
 
-
-NOC = ""
 
 with open("chosen_country.txt", "r") as f_reader:
     NOC = f_reader.read()
@@ -45,6 +44,31 @@ class Layout:
     def layout(self):
         return dbc.Container(
             [
+                dbc.Row(
+                    [
+                        dbc.Row(
+                            [
+                                dbc.CardHeader(
+                                    [html.H1("Olympic Games Dashboard"),
+                                     ],
+                                    class_name="text-center my-3 mx-auto"
+                                ),
+                                dbc.CardHeader(
+                                    html.H2("Country: " + COUNTRY)
+                                ),
+                                dbc.CardBody(
+                                    [
+
+                                        html.P(
+                                            "This dashboard shows the Olympic Games data for the country " + COUNTRY),
+                                        html.P(
+                                            "The dashboard shows general info about all the Olympic Games, the medals per year, the most successful athletes and the most successful sports."),
+                                    ]
+                                )
+                            ]
+                        ),
+                    ]
+                ),
                 create_sport_section(),
                 dbc.Row(
                     [

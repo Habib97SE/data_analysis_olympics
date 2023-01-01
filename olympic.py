@@ -8,6 +8,7 @@ def read_data(file_name: str) -> pd.DataFrame():
     df = ""
     try:
         df = pd.read_csv(os.path.join("data", file_name))
+
     except:
         df = False
     finally:
@@ -306,3 +307,14 @@ class Olympic:
 
     def get_years(self):
         return [i for i in self.get_unique_sorted_items("Year", True)]
+
+    def get_age_distribution(self):
+        """
+            Return a histogram of the age distribution of the athletes in the all olmpics
+        """
+        fig = px.histogram(self._df, x="Age", nbins=20)
+        fig.update_traces(hovertemplate="%{x}: %{y}")
+        return fig
+
+    def get_dataframe(self, column, value):
+        return self._df.loc[self._df[column] == value]

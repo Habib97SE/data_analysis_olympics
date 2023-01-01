@@ -13,7 +13,7 @@ with open("chosen_country.txt", "r") as f_reader:
 df_olympic = Olympic("athlete_events.csv", NOC)
 
 
-def top_medalists():
+def plot_top_medalists():
     return dbc.Card(
         [
             dbc.CardHeader(
@@ -30,7 +30,7 @@ def top_medalists():
     )
 
 
-def top_10_sports():
+def plot_top_10_sports():
     return dbc.Card(
         [
             dbc.CardHeader(
@@ -47,7 +47,7 @@ def top_10_sports():
     )
 
 
-def gender_dist():
+def plot_gender_dist():
     return dbc.Card(
         [
             dbc.CardHeader(
@@ -64,7 +64,7 @@ def gender_dist():
     )
 
 
-def top_country():
+def plot_top_country():
     return dbc.Card(
         [
             dbc.CardHeader(
@@ -81,7 +81,7 @@ def top_country():
     )
 
 
-def height_weight_athletes():
+def plot_height_weight_athletes():
     return dbc.Card(
         [
             dbc.CardHeader(
@@ -97,24 +97,74 @@ def height_weight_athletes():
         class_name="mt-3 my-3 mx-auto",
     )
 
+
+def plot_searched_sport():
+    return dbc.Row(
+        [dbc.Row(
+            [
+                dcc.Input(
+                    id="input_sport",
+                    type="text",
+                    placeholder="Enter sport name",
+                    className="form-control",
+                )
+            ]
+        ),
+            dbc.Row(
+            dbc.Card(
+                [
+                    dbc.CardHeader(
+                        html.H2("Searched Sport")
+                    ),
+                    dbc.CardBody(
+                        dcc.Graph(id="graph_searched_sport")
+                    ),
+                    dbc.CardFooter(
+                        html.P("This graph shows the searched sport")
+                    )
+                ],
+                class_name="mt-3 my-3 mx-auto",
+            )
+        )]
+    )
+
+
+def plot_age_distribution():
+    return dbc.Card(
+        [
+            dbc.CardHeader(
+                html.H2("Age Distribution")
+            ),
+            dbc.CardBody(
+                dcc.Graph(id="graph_age_distribution")
+            ),
+            dbc.CardFooter(
+                html.P("This graph shows the age distribution of athletes")
+            )
+        ],
+        class_name="mt-3 my-3 mx-auto",
+    )
+
+
 # Create sport section of the dashboard
 
 
 def create_sport_section():
     return html.Div(
         [
-            top_medalists(),
-            top_10_sports(),
+            plot_top_medalists(),
+            plot_top_10_sports(),
             dbc.Row(
                 [
                     dbc.Col(
-                        gender_dist(),
+                        plot_gender_dist(),
                     ),
                     dbc.Col(
-                        top_country(),
+                        plot_top_country(),
                     )
                 ]
             ),
-            height_weight_athletes(),
+            plot_height_weight_athletes(),
+            plot_age_distribution(),
         ]
     )

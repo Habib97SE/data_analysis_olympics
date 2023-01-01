@@ -118,6 +118,15 @@ def update_gender_graph_dist_country(selected_year):
     return fig
 
 
+@app.callback(
+    Output("graph_age_distribution", "figure"),
+    Input("select_year", "value"),
+)
+def update_graph_age_distribution(selected_year):
+    fig = df_olympic.get_age_distribution()
+    return fig
+
+
 def main():
     app.run_server(debug=True)
 
