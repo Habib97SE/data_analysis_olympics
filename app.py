@@ -127,9 +127,5 @@ def update_graph_age_distribution(selected_year):
     return fig
 
 
-def main():
-    app.run_server(debug=True)
-
-
 if __name__ == "__main__":
-    main()
+    app.run_server(debug=True)
