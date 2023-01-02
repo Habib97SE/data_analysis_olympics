@@ -92,7 +92,7 @@ def plot_height_weight_athletes():
                 dbc.Row(
                     [
                         dbc.Col(
-                            html.H2("Height and Weight of Athletes")
+                            html.H2("Height and Weight ratio of Athletes")
                         ),
                         dbc.Col(
                             [

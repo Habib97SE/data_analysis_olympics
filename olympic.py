@@ -324,3 +324,17 @@ class Olympic:
 
     def get_dataframe(self, column, value):
         return self._df.loc[self._df[column] == value]
+
+    def get_age_dist_by_country(self, select_year):
+        """
+            Return a histogram of the age distribution of the athletes in the all olmpics
+        """
+        df = ""
+        if select_year is not None:
+            df = self._df_country.loc[self._df_country["Year"] == int(
+                select_year)]
+        else:
+            df = self._df_country
+        fig = px.histogram(df, x="Age", nbins=20)
+        fig.update_traces(hovertemplate="%{x}: %{y}")
+        return fig

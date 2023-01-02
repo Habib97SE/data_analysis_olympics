@@ -137,5 +137,14 @@ def update_graph_height_weight_athletes(selected_sport):
     return fig
 
 
+@app.callback(
+    Output("country_age_dist", "figure"),
+    Input("select_age_dist_year", "value"),
+)
+def update_country_age_dist(selected_year):
+    fig = df_olympic.get_age_dist_by_country(selected_year)
+    return fig
+
+
 if __name__ == "__main__":
     app.run_server(debug=True)

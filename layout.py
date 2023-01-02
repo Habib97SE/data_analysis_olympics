@@ -1,7 +1,6 @@
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 from olympic import Olympic
-
 from layouts.sport import create_sport_section
 from layouts.country import create_country_section
 
@@ -82,34 +81,10 @@ class Layout:
                     ]
                 ),
                 create_sport_section(),
+
                 dbc.Row(
                     [
-                        html.Div(
-                            className="short_stats",
-                            children=[
-                                html.P("Total number of competitors:"),
-                                html.H4("258 000")
-                            ]
-                        )
-                    ]
-                ),
-                dbc.Row(
-                    [
-                        dbc.Col(
-                            [
-                                html.Label("Select Year",
-                                           htmlFor="select_year"),
-                                dcc.Dropdown(
-                                    id="select_year",
-                                    options=[
-                                        {"label": value, "value": key}
-                                        for key, value in self.df_os.create_dropdown_year_season().items()
-                                    ],
-                                    value=2016,
-                                ),
-                            ],
-                            className="col-3",
-                        )
+
                     ]
                 ),
                 create_country_section(),

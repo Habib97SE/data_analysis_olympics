@@ -137,17 +137,34 @@ def plot_country_gender_distribution():
 def create_country_section():
     return html.Div(
         [
-            dbc.Row(
-                dbc.CardHeader(
+            dbc.CardHeader(
+                dbc.Row(
                     [
-                        html.H2(
-                            f"History of {COUNTRY} in the olympics"),
-                        html.P(
-                            f"This is a graph that shows the history of {COUNTRY} in the olympics"),
+                        dbc.Col(
+                            [html.H2(
+                                f"History of {COUNTRY} in the olympics"),
+                             html.P(
+                                f"This is a graph that shows the history of {COUNTRY} in the olympics"),]
+                        ),
+                        dbc.Col(
+
+                            [html.Label("Select Year",
+                                        htmlFor="select_year"),
+                             dcc.Dropdown(
+                                id="select_year",
+                                options=[
+                                    {"label": value, "value": key}
+                                    for key, value in df_olympic.create_dropdown_year_season().items()
+                                ],
+                                value=2016,
+                            ),]
+
+                        )
+
                     ]
                 ),
-                className="mb-3 mx-auto my-3",
             ),
+
             dbc.Row(
                 [
                     dbc.Col(
@@ -172,20 +189,22 @@ def create_country_section():
                             dbc.Card(
                                 [
                                     dbc.CardHeader(
-                                        html.H2("Card Header")
+                                        [html.H2(
+                                            f"Age Distribution of Athletes ({COUNTRY})"),
+                                            dcc.Dropdown(
+                                                id="select_age_dist_year",
+                                                options=[
+                                                    {"label": value, "value": key} for key, value in df_olympic.create_dropdown_year_season().items()
+                                                ],
+                                        )
+                                        ]
                                     ),
                                     dbc.CardBody(
-                                        html.Ul(
-                                            [
-                                                html.Li("Item 1"),
-                                                html.Li("Item 2"),
-                                                html.Li("Item 3"),
-
-                                            ]
-                                        )
+                                        dcc.Graph(id="country_age_dist")
                                     ),
                                     dbc.CardFooter(
-                                        html.P("Card Footer")
+                                        html.P(
+                                            "This graph shows the age distribution of athletes in the country")
                                     ),
                                 ]
                             )
