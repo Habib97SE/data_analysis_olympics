@@ -68,3 +68,29 @@ main {
     font-weight: 700;
     text-align: center;
 }
+
+
+.main_section {
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #d3d3d3;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    /* Add some shadow to the box*/
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.main_section h2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.main_section .form_control{ 
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    width: 30%;
+}

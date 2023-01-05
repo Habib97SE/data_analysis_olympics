@@ -338,3 +338,48 @@ class Olympic:
         fig = px.histogram(df, x="Age", nbins=20)
         fig.update_traces(hovertemplate="%{x}: %{y}")
         return fig
+
+    def check_condition(self, column, condition, df: pd.DataFrame = None):
+        if df is None:
+            df = self._df
+        return df.loc[df[column] == condition]
+
+    def draw_plot(self, data, x_column, y_column,  title, chart_type):
+        chart_types = {
+            "scatter": px.scatter,
+            "bar": px.bar,
+            "line": px.line,
+            "histogram": px.histogram,
+            "box": px.box,
+            "violin": px.violin,
+            "area": px.area,
+            "pie": px.pie,
+            "sunburst": px.sunburst,
+            "treemap": px.treemap,
+            "scatter_3d": px.scatter_3d,
+            "line_3d": px.line_3d,
+            "density_contour": px.density_contour,
+            "density_heatmap": px.density_heatmap,
+        }
+        if chart_type not in chart_types:
+            raise ValueError("Invalid chart type")
+        return chart_types[chart_type](data, x=x_column)
+
+    def get_custom_graph(self, **kwargs):
+        """
+            Get a custom data from the dataframe where the user can choose the columns to show
+        """
+        df = self._df_country
+        if kwargs['columns'] is not None:
+
+            for column in kwargs['columns']:
+                df = self.check_condition(
+                    column['column'], column['condition'], df)
+
+            # if column not existed raise Exception
+            for column in kwargs['columns']:
+                if column['column'] not in df.columns:
+                    raise Exception("Column not found")
+
+        # Based on kwargs['chart_type'] return the graph
+        return self.draw_plot(df, kwargs['x_column'], kwargs['y_column'], kwargs['title'], kwargs['chart_type'])
